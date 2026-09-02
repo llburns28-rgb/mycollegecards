@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Cards – Student Discounts Made Easy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #2d3e52; margin: 0; }
+
+    /* ── Typography ── */
+    .font-display { font-family: 'Outfit', sans-serif; }
+    .font-serif   { font-family: 'Lora', serif; }
+
+    /* ── Brand color ── */
+    :root {
+      --navy:      #2d3e52;
+      --navy-mid:  #4a6074;
+      --navy-mute: #7a93a8;
+      --navy-tint: #edf2f6;
+      --cream:     #faf4f1;
+      --green:     #f97316;
+    }
+
+    /* ── Nav ── */
+    #navbar {
+      transition: box-shadow 0.3s ease;
+    }
+    #navbar.scrolled {
+      box-shadow: 0 1px 0 rgba(45,62,82,0.1), 0 4px 24px rgba(45,62,82,0.06);
+    }
+
+    /* ── Buttons ── */
+    .btn-navy {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--navy);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: background 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+      box-shadow: 0 2px 8px rgba(45,62,82,0.2), 0 6px 20px rgba(45,62,82,0.1);
+    }
+    .btn-navy:hover {
+      background: #3a5068;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(45,62,82,0.25), 0 10px 30px rgba(45,62,82,0.12);
+    }
+    .btn-navy:active  { transform: translateY(0); }
+    .btn-navy:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent;
+      color: var(--navy);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 12px;
+      border: 2px solid var(--navy);
+      text-decoration: none;
+      font-size: 15px;
+      transition: background 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-outline:hover  { background: var(--navy-tint); transform: translateY(-2px); }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+
+    /* Store buttons (light page context) */
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+    .store-btn:hover  { transform: translateY(-2px); }
+    .store-btn:active { transform: translateY(0); }
+    .store-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+    .store-btn-navy {
+      background: var(--navy);
+      color: white;
+      box-shadow: 0 2px 8px rgba(45,62,82,0.2), 0 6px 20px rgba(45,62,82,0.1);
+    }
+    .store-btn-navy:hover {
+      box-shadow: 0 4px 16px rgba(45,62,82,0.28), 0 10px 30px rgba(45,62,82,0.14);
+    }
+    .store-btn-outline {
+      border: 2px solid var(--navy);
+      color: var(--navy);
+    }
+    .store-btn-outline:hover { background: var(--navy-tint); }
+
+    /* CTA section store buttons (on dark) */
+    .store-btn-white {
+      background: white;
+      color: var(--navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.08);
+    }
+    .store-btn-white:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.18), 0 10px 30px rgba(0,0,0,0.1); }
+    .store-btn-ghost-white {
+      border: 2px solid rgba(255,255,255,0.4);
+      color: white;
+    }
+    .store-btn-ghost-white:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Nav CTA (small) ── */
+    .nav-btn {
+      background: var(--navy);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .nav-btn:hover  { background: #3a5068; transform: translateY(-1px); }
+    .nav-btn:active { transform: translateY(0); }
+    .nav-btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+    }
+
+    /* ── Phone mockup ── */
+    @keyframes float {
+      0%   { transform: translateY(0px)   rotate(-2deg); }
+      20%  { transform: translateY(-10px) rotate(-1.4deg); }
+      50%  { transform: translateY(-18px) rotate(-2.8deg); }
+      75%  { transform: translateY(-7px)  rotate(-1.7deg); }
+      100% { transform: translateY(0px)   rotate(-2deg); }
+    }
+    .phone-float { animation: float 7s cubic-bezier(0.45,0.05,0.55,0.95) infinite; }
+
+    /* Outer glow ring */
+    .phone-glow {
+      position: relative;
+      padding: 3px;
+      border-radius: 48px;
+      background: linear-gradient(145deg, rgba(249,115,22,0.18) 0%, rgba(45,62,82,0.10) 60%, rgba(249,115,22,0.08) 100%);
+      box-shadow:
+        0 0 0 1px rgba(249,115,22,0.12),
+        0 50px 100px rgba(45,62,82,0.30),
+        0 24px 48px rgba(45,62,82,0.18),
+        0 8px 16px rgba(45,62,82,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .phone-frame {
+      width: 290px;
+      height: 606px;
+      background: #11181f;
+      border-radius: 44px;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Side buttons */
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 120px;
+      width: 4px;
+      height: 32px;
+      background: linear-gradient(180deg,#2a3a4a,#1a2530);
+      border-radius: 3px 0 0 3px;
+      box-shadow: 0 40px 0 #1a2530, 0 80px 0 #1a2530;
+    }
+    .phone-frame::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 150px;
+      width: 4px;
+      height: 50px;
+      background: linear-gradient(180deg,#2a3a4a,#1a2530);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Dynamic island */
+    .phone-island {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 44px;
+    }
+
+    /* ── Feature cards ── */
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(45,62,82,0.08);
+      border-top: 3px solid transparent;
+      box-shadow: 0 1px 3px rgba(45,62,82,0.04), 0 6px 20px rgba(45,62,82,0.05);
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-top-color: var(--green);
+      box-shadow: 0 4px 10px rgba(45,62,82,0.08), 0 20px 60px rgba(45,62,82,0.12);
+    }
+
+    /* ── Partner cards (flip) ── */
+    .partner-card.flip-card {
+      perspective: 1400px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      border-radius: 18px;
+    }
+    .flip-card:focus-visible {
+      outline: 2px solid var(--navy);
+      outline-offset: 4px;
+      border-radius: 20px;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      transition: transform 0.65s cubic-bezier(0.4, 0.04, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .flip-front {
+      position: relative;
+      background: white;
+      border: 1px solid rgba(45,62,82,0.08);
+      box-shadow: 0 1px 3px rgba(45,62,82,0.04), 0 4px 14px rgba(45,62,82,0.04);
+    }
+    .flip-back {
+      position: absolute;
+      inset: 0;
+      transform: rotateY(180deg);
+      background: linear-gradient(165deg, #1a2a3a 0%, #243447 100%);
+      justify-content: center;
+      gap: 8px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(45,62,82,0.04), 0 4px 14px rgba(45,62,82,0.04);
+    }
+    .flip-card:hover .flip-front,
+    .flip-card:hover .flip-back {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(45,62,82,0.1), 0 14px 40px rgba(45,62,82,0.08);
+    }
+    .flip-card:hover .flip-back { transform: translateY(-3px) rotateY(180deg); }
+    .flip-card:active .flip-front,
+    .flip-card:active .flip-back {
+      transform: translateY(-1px) scale(0.98);
+    }
+    .flip-card:active .flip-back { transform: translateY(-1px) scale(0.98) rotateY(180deg); }
+    .tap-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 27px; height: 27px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#fde68a,#f59e0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(245,158,11,0.45);
+      animation: tapPulse 2.4s ease-in-out infinite;
+      z-index: 2;
+    }
+    @keyframes tapPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+    .tap-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #b45309;
+      margin-top: 3px;
+    }
+    .deal-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f59e0b;
+    }
+    .deal-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.45;
+      color: white;
+      margin: 0;
+    }
+    .deal-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+    }
+    .flip-back-hint {
+      font-size: 9.5px;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.38);
+      margin-top: 2px;
+    }
+    .partner-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Founder cards ── */
+    .founder-card {
+      background: white;
+      border-radius: 22px;
+      padding: 32px 28px;
+      border: 1px solid rgba(45,62,82,0.07);
+      box-shadow: 0 1px 3px rgba(45,62,82,0.04), 0 8px 28px rgba(45,62,82,0.06);
+      text-align: center;
+    }
+    .founder-photo {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--navy-tint);
+      margin: 0 auto 18px;
+      display: block;
+    }
+
+    /* ── Testimonial cards ── */
+    .testimonial-card {
+      background: white;
+      border-radius: 20px;
+      padding: 26px;
+      border: 1px solid rgba(45,62,82,0.07);
+      box-shadow: 0 1px 3px rgba(45,62,82,0.04), 0 5px 18px rgba(45,62,82,0.05);
+    }
+
+    /* ── Step number ── */
+    .step-num {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 20px; color: white;
+      background: var(--navy);
+      box-shadow: 0 4px 14px rgba(45,62,82,0.2);
+    }
+    .step-num-accent {
+      background: var(--green);
+      box-shadow: 0 4px 14px rgba(249,115,22,0.25);
+    }
+
+    /* ── CTA section ── */
+    .cta-bg {
+      background: linear-gradient(150deg, #1a2d42 0%, #2d3e52 55%, #1c2b3a 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 90% at 15% 50%, rgba(249,115,22,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 50%, rgba(255,255,255,0.03) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(45,62,82,0.6) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Scroll animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f0f4f8; }
+    ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: rgba(45,62,82,0.08);
+    }
+
+    /* ── Coming-soon pill proximity effect ── */
+    .soon-pill {
+      position: relative;
+      display: inline-flex;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      will-change: transform;
+    }
+
+    /* ── Live pulse dot ── */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.55; transform: scale(1.6); }
+    }
+
+    /* ── Stats strip ── */
+    .stat-num {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--green);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.42);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 5px;
+    }
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+      align-self: stretch;
+    }
+
+    /* ── Trust strip checks ── */
+    .trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--navy-mute);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAVIGATION ─────────────── -->
+  <nav id="navbar" class="sticky top-0 z-50 bg-white">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#" style="display:block;flex-shrink:0;text-decoration:none;">
+        <img src="./brand_assets/College Cards Logos and QR Codes.png" alt="College Cards" style="width:130px;height:62px;object-fit:cover;object-position:center 50%;mix-blend-mode:multiply;display:block;">
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#partners"    class="text-sm font-medium transition-colors duration-200" style="color:var(--navy-mid);"
+           onmouseover="this.style.color='var(--navy)'" onmouseout="this.style.color='var(--navy-mid)'">Partners</a>
+        <a href="#how-it-works" class="text-sm font-medium transition-colors duration-200" style="color:var(--navy-mid);"
+           onmouseover="this.style.color='var(--navy)'" onmouseout="this.style.color='var(--navy-mid)'">How It Works</a>
+        <a href="#founders"    class="text-sm font-medium transition-colors duration-200" style="color:var(--navy-mid);"
+           onmouseover="this.style.color='var(--navy)'" onmouseout="this.style.color='var(--navy-mid)'">Our Team</a>
+        <a href="for-businesses.html" class="text-sm font-medium transition-colors duration-200" style="color:var(--navy-mid);"
+           onmouseover="this.style.color='var(--navy)'" onmouseout="this.style.color='var(--navy-mid)'">For Businesses</a>
+        <a href="https://apps.apple.com/us/app/college-cards-app/id6751094590" target="_blank" rel="noopener noreferrer" class="nav-btn">Get the App</a>
+      </div>
+
+      <button class="md:hidden" style="color:var(--navy)" aria-label="Menu">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 7h16M3 12h16M3 17h16"/>
+        </svg>
+      </button>
+    </div>
+    <div class="divider"></div>
+  </nav>
+
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <section class="py-16 md:py-24 overflow-hidden" style="background:linear-gradient(155deg,#ffffff 0%,#fdf8f5 55%,#fff6ef 100%);position:relative;">
+    <!-- Soft orange glow in top-right -->
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+      <div style="position:absolute;top:-15%;right:-8%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 65%);"></div>
+      <div style="position:absolute;bottom:-20%;left:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(45,62,82,0.04) 0%,transparent 65%);"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6" style="position:relative;z-index:2;">
+      <div class="flex flex-col lg:flex-row items-center gap-14 lg:gap-20">
+
+        <!-- Left: Copy -->
+        <div class="flex-1 text-center lg:text-left">
+
+          <!-- Live social proof badge -->
+          <div class="inline-flex items-center gap-2 mb-5 fade-up" style="background:rgba(249,115,22,0.08);border:1.5px solid rgba(249,115,22,0.22);border-radius:999px;padding:6px 15px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#f97316;display:inline-block;animation:pulse-dot 2s ease infinite;flex-shrink:0;"></span>
+            <span style="font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:#d96010;">New deals added every semester</span>
+          </div>
+
+          <h1 class="font-display font-black leading-none mb-5 fade-up"
+              style="font-size:clamp(3.2rem,6.5vw,5.4rem);letter-spacing:-0.04em;color:var(--navy);transition-delay:0.06s;">
+            Stop paying<br>
+            <em class="font-serif" style="font-style:italic;font-weight:700;color:var(--green);letter-spacing:-0.02em;">full price.</em>
+          </h1>
+
+          <p style="color:var(--navy-mid);line-height:1.75;font-size:1.05rem;" class="max-w-md mx-auto lg:mx-0 mb-7 fade-up" style="transition-delay:0.1s;">
+            Exclusive deals at your favorite spots near campus — and new ones added every semester. Show the app, save instantly — students average <strong style="color:var(--navy);font-weight:700;">$150+ every semester.</strong>
+          </p>
+
+          <!-- App store CTAs -->
+          <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-5 fade-up" style="transition-delay:0.14s;">
+            <a href="https://apps.apple.com/us/app/college-cards-app/id6751094590" target="_blank" rel="noopener noreferrer" class="store-btn store-btn-navy">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              <div>
+                <div style="font-size:9.5px;font-weight:400;opacity:0.65;line-height:1;">Download on the</div>
+                <div style="font-size:15px;font-family:'Outfit',sans-serif;font-weight:700;line-height:1.3;">App Store</div>
+              </div>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.kbtech.discount_card&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="store-btn store-btn-outline">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+                <path d="M5 3.5c0-.59.32-1.1.82-1.36.5-.27 1.1-.23 1.56.1l13 9.5c.4.3.62.75.62 1.26s-.22.96-.62 1.26l-13 9.5c-.46.33-1.06.37-1.56.1-.5-.26-.82-.77-.82-1.36V3.5z"/>
+              </svg>
+              <div>
+                <div style="font-size:9.5px;font-weight:400;opacity:0.55;line-height:1;">Get it on</div>
+                <div style="font-size:15px;font-family:'Outfit',sans-serif;font-weight:700;line-height:1.3;">Google Play</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Trust strip -->
+          <div class="flex flex-wrap gap-x-5 gap-y-2 justify-center lg:justify-start mb-5 fade-up" style="transition-delay:0.18s;">
+            <span class="trust-item"><svg width="12" height="12" fill="var(--green)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="var(--green)" stroke-width="3" fill="none"/></svg>First month free</span>
+            <span class="trust-item"><svg width="12" height="12" fill="var(--green)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="var(--green)" stroke-width="3" fill="none"/></svg>No .edu required</span>
+            <span class="trust-item"><svg width="12" height="12" fill="var(--green)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="var(--green)" stroke-width="3" fill="none"/></svg>Cancel anytime</span>
+          </div>
+
+          <!-- For Businesses CTA -->
+          <div class="flex justify-center lg:justify-start">
+            <a href="for-businesses.html"
+               style="display:inline-flex;align-items:center;gap:6px;font-family:'Outfit',sans-serif;font-weight:600;font-size:0.85rem;color:var(--navy-mute);letter-spacing:0.01em;transition:color 0.2s;text-decoration:none;"
+               onmouseover="this.style.color='var(--navy)'"
+               onmouseout="this.style.color='var(--navy-mute)'">
+              Are you a business?
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right: Phone mockup -->
+        <div class="flex-shrink-0 flex justify-center">
+          <div class="phone-float">
+            <div class="phone-glow">
+              <div class="phone-frame">
+                <div class="phone-island"></div>
+                <div class="phone-screen">
+                  <img src="./brand_assets/IMG_0350.PNG" alt="College Cards App" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;transform:translateZ(0);-webkit-backface-visibility:hidden;image-rendering:-webkit-optimize-contrast;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── STATS STRIP ─────────────── -->
+  <section style="background:var(--navy);">
+    <div class="max-w-4xl mx-auto px-6 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-0 text-center">
+        <div style="flex:1;padding:12px 0;">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Local partners</div>
+        </div>
+        <div class="stat-divider hidden sm:block"></div>
+        <div style="flex:1;padding:12px 0;">
+          <div class="stat-num">$150+</div>
+          <div class="stat-label">Avg saved / semester</div>
+        </div>
+        <div class="stat-divider hidden sm:block"></div>
+        <div style="flex:1;padding:12px 0;">
+          <div class="stat-num">1st Mo.</div>
+          <div class="stat-label">Free</div>
+        </div>
+        <div class="stat-divider hidden sm:block"></div>
+        <div style="flex:1;padding:12px 0;">
+          <div class="stat-num">$4.99</div>
+          <div class="stat-label">Per month</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── TRUSTED BY STRIP ─────────────── -->
+  <section style="background:var(--cream);" class="py-14">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <p class="section-label mb-4">Now available at</p>
+      <div class="flex items-center justify-center gap-3 mb-10">
+        <!-- Texas A&M maroon as a subtle accent on the logo badge -->
+        <div style="display:inline-flex;align-items:center;gap:10px;background:white;border:1.5px solid rgba(249,115,22,0.2);border-radius:14px;padding:10px 20px;box-shadow:0 2px 8px rgba(45,62,82,0.06);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#500000;flex-shrink:0;"></div>
+          <span class="font-display font-black text-xl" style="color:#500000;">Texas A&amp;M University</span>
+        </div>
+      </div>
+
+      <div class="pt-5 mb-5" style="border-top:1px solid rgba(45,62,82,0.1);">
+        <p class="section-label mb-4" style="opacity:0.65;">Coming soon</p>
+        <div class="flex items-center justify-center gap-3 flex-wrap">
+
+          <div class="soon-pill">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1.5px solid rgba(234,88,12,0.18);border-radius:12px;padding:8px 16px;box-shadow:0 2px 8px rgba(45,62,82,0.04);filter:blur(0.8px);opacity:0.55;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#E05E10;flex-shrink:0;"></div>
+              <span class="font-display font-black text-base" style="color:#E05E10;">Clemson</span>
+            </div>
+            <span style="position:absolute;top:-7px;right:-8px;background:var(--navy);color:white;font-size:8px;font-weight:800;letter-spacing:0.05em;padding:2px 6px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 6px rgba(45,62,82,0.25);">Soon</span>
+          </div>
+
+          <div class="soon-pill">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1.5px solid rgba(118,29,52,0.18);border-radius:12px;padding:8px 16px;box-shadow:0 2px 8px rgba(45,62,82,0.04);filter:blur(0.8px);opacity:0.55;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#761D34;flex-shrink:0;"></div>
+              <span class="font-display font-black text-base" style="color:#761D34;">Virginia Tech</span>
+            </div>
+            <span style="position:absolute;top:-7px;right:-8px;background:var(--navy);color:white;font-size:8px;font-weight:800;letter-spacing:0.05em;padding:2px 6px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 6px rgba(45,62,82,0.25);">Soon</span>
+          </div>
+
+          <div class="soon-pill">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1.5px solid rgba(195,30,20,0.18);border-radius:12px;padding:8px 16px;box-shadow:0 2px 8px rgba(45,62,82,0.04);filter:blur(0.8px);opacity:0.55;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#C31E14;flex-shrink:0;"></div>
+              <span class="font-display font-black text-base" style="color:#C31E14;">Ohio State</span>
+            </div>
+            <span style="position:absolute;top:-7px;right:-8px;background:var(--navy);color:white;font-size:8px;font-weight:800;letter-spacing:0.05em;padding:2px 6px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 6px rgba(45,62,82,0.25);">Soon</span>
+          </div>
+
+          <div class="soon-pill">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1.5px solid rgba(195,90,0,0.18);border-radius:12px;padding:8px 16px;box-shadow:0 2px 8px rgba(45,62,82,0.04);filter:blur(0.8px);opacity:0.55;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#C35A00;flex-shrink:0;"></div>
+              <span class="font-display font-black text-base" style="color:#C35A00;">UT Austin</span>
+            </div>
+            <span style="position:absolute;top:-7px;right:-8px;background:var(--navy);color:white;font-size:8px;font-weight:800;letter-spacing:0.05em;padding:2px 6px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 6px rgba(45,62,82,0.25);">Soon</span>
+          </div>
+
+          <div class="soon-pill">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1.5px solid rgba(135,28,28,0.18);border-radius:12px;padding:8px 16px;box-shadow:0 2px 8px rgba(45,62,82,0.04);filter:blur(0.8px);opacity:0.55;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#871C1C;flex-shrink:0;"></div>
+              <span class="font-display font-black text-base" style="color:#871C1C;">Oklahoma</span>
+            </div>
+            <span style="position:absolute;top:-7px;right:-8px;background:var(--navy);color:white;font-size:8px;font-weight:800;letter-spacing:0.05em;padding:2px 6px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 6px rgba(45,62,82,0.25);">Soon</span>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="text-sm font-medium" style="color:var(--navy-mute);">
+        More campuses launching every semester &mdash;
+        <a href="#download" style="color:var(--navy);text-decoration:underline;text-underline-offset:3px;">download the app</a>
+        to get notified when we launch at your campus.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── PARTNERS ─────────────── -->
+  <section id="partners" class="py-24" style="background:#ffffff;">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14 fade-up">
+        <p class="section-label mb-3">Where You'll Save</p>
+        <h2 class="font-display font-black text-4xl mb-3" style="color:var(--navy);letter-spacing:-0.03em;">
+          New spots added every semester.
+        </h2>
+        <p style="color:var(--navy-mid);line-height:1.75;font-size:1rem;" class="max-w-lg mx-auto">
+          Breakfast, bars, late-night eats — every place worth going near campus has an exclusive deal waiting for you.
+        </p>
+      </div>
+
+      <!-- Marquee ticker -->
+      <style>
+        @keyframes marquee-left { from { transform:translateX(0) } to { transform:translateX(-50%) } }
+        .marquee-track { display:flex; width:max-content; gap:14px; animation: marquee-left 42s linear infinite; }
+        .m-card {
+          display:inline-flex; flex-direction:column; align-items:center;
+          background:#fff;
+          border:1px solid rgba(45,62,82,0.1);
+          border-radius:16px;
+          overflow:hidden;
+          box-shadow:0 1px 6px rgba(45,62,82,0.07);
+          width:148px;
+          flex-shrink:0;
+        }
+        .m-card-img {
+          width:148px; height:92px;
+          background-repeat:no-repeat;
+          background-color:#fff;
+          flex-shrink:0;
+        }
+        .m-card-name {
+          font-family:'Outfit',sans-serif;
+          font-weight:600;
+          font-size:12px;
+          color:var(--navy);
+          padding:9px 10px;
+          text-align:center;
+          width:100%;
+          border-top:1px solid rgba(45,62,82,0.07);
+        }
+      </style>
+
+      <div class="relative overflow-hidden fade-up" style="-webkit-mask-image:linear-gradient(90deg,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(90deg,transparent,black 5%,black 95%,transparent);">
+        <div class="marquee-track">
+
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:154% auto;background-position:-27% 101%;"></div><div class="m-card-name">BJ's Restaurant</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:309% auto;background-position:5% 25%;"></div><div class="m-card-name">Blaze Pizza</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:253% auto;background-position:89% 0%;"></div><div class="m-card-name">Bubba's 33</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:198% auto;background-position:5% -2%;"></div><div class="m-card-name">Cinnaholic</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:157% auto;background-position:-22% 1%;"></div><div class="m-card-name">Dave's Hot Chicken</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:266% auto;background-position:103% 66%;"></div><div class="m-card-name">Freezing Cow</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/gumbys-pizza-logo.png');background-size:82% auto;background-position:center;background-repeat:no-repeat;background-color:#fff;"></div><div class="m-card-name">Gumby's Pizza</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:142% auto;background-position:140% 8%;"></div><div class="m-card-name">Jumping World</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:197% auto;background-position:1% 83%;"></div><div class="m-card-name">Kung Fu Tea</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:224% auto;background-position:103% 48%;"></div><div class="m-card-name">La Bodega</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:178% auto;background-position:122% 101%;"></div><div class="m-card-name">Layne's Chicken Fingers</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:175% auto;background-position:116% 91%;"></div><div class="m-card-name">Nick the Greek</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:249% auto;background-position:-16% 45%;"></div><div class="m-card-name">The Patty Daddy</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:259% auto;background-position:36% 64%;"></div><div class="m-card-name">Pepperoni's</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:371% auto;background-position:99% 40%;"></div><div class="m-card-name">Red's Ice House</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:185% auto;background-position:-3% 48%;"></div><div class="m-card-name">Rough Draught</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:215% auto;background-position:22% 45%;"></div><div class="m-card-name">Sevcik's Service Center</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:191% auto;background-position:-6% 90%;"></div><div class="m-card-name">Tiff's Treats</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:227% auto;background-position:92% 5%;"></div><div class="m-card-name">The Toasted Yolk Cafe</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:142% auto;background-position:141% 86%;"></div><div class="m-card-name">U Paint It</div></div>
+
+          <!-- Duplicate for seamless loop -->
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:154% auto;background-position:-27% 101%;"></div><div class="m-card-name">BJ's Restaurant</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:309% auto;background-position:5% 25%;"></div><div class="m-card-name">Blaze Pizza</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:253% auto;background-position:89% 0%;"></div><div class="m-card-name">Bubba's 33</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:198% auto;background-position:5% -2%;"></div><div class="m-card-name">Cinnaholic</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:157% auto;background-position:-22% 1%;"></div><div class="m-card-name">Dave's Hot Chicken</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:266% auto;background-position:103% 66%;"></div><div class="m-card-name">Freezing Cow</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/gumbys-pizza-logo.png');background-size:82% auto;background-position:center;background-repeat:no-repeat;background-color:#fff;"></div><div class="m-card-name">Gumby's Pizza</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:142% auto;background-position:140% 8%;"></div><div class="m-card-name">Jumping World</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:197% auto;background-position:1% 83%;"></div><div class="m-card-name">Kung Fu Tea</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:224% auto;background-position:103% 48%;"></div><div class="m-card-name">La Bodega</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:178% auto;background-position:122% 101%;"></div><div class="m-card-name">Layne's Chicken Fingers</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:175% auto;background-position:116% 91%;"></div><div class="m-card-name">Nick the Greek</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:249% auto;background-position:-16% 45%;"></div><div class="m-card-name">The Patty Daddy</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:259% auto;background-position:36% 64%;"></div><div class="m-card-name">Pepperoni's</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-2.jpg');background-size:371% auto;background-position:99% 40%;"></div><div class="m-card-name">Red's Ice House</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:185% auto;background-position:-3% 48%;"></div><div class="m-card-name">Rough Draught</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:215% auto;background-position:22% 45%;"></div><div class="m-card-name">Sevcik's Service Center</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:191% auto;background-position:-6% 90%;"></div><div class="m-card-name">Tiff's Treats</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-3.jpg');background-size:227% auto;background-position:92% 5%;"></div><div class="m-card-name">The Toasted Yolk Cafe</div></div>
+          <div class="m-card"><div class="m-card-img" style="background-image:url('./brand_assets/Convention Posters-4.jpg');background-size:142% auto;background-position:141% 86%;"></div><div class="m-card-name">U Paint It</div></div>
+
+        </div>
+      </div>
+
+      <p class="text-center mt-8 text-sm fade-up" style="color:var(--navy-mute);">+ more coming soon</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── FEATURES ─────────────── -->
+  <section id="features" style="background:var(--cream);" class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14 fade-up">
+        <p class="section-label mb-3">Why students love it</p>
+        <h2 class="font-display font-black text-4xl mb-3" style="color:var(--navy);letter-spacing:-0.03em;">Deals that hit different.</h2>
+        <p style="color:var(--navy-mid);line-height:1.75;font-size:1rem;" class="max-w-lg mx-auto">
+          Not the same tired student discount. Exclusive deals at places you actually want to go — yours the moment you download.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+
+        <div class="feature-card fade-up">
+          <div style="width:46px;height:46px;background:rgba(249,115,22,0.1);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Exclusive Local Deals</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">Restaurants, bars, and spots near campus — exclusive to College Cards. You won't find these deals anywhere else.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.08s">
+          <div style="width:46px;height:46px;background:rgba(249,115,22,0.1);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Flash Drops</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">Bigger, limited-time deals that pop without warning. Check the app or miss out — they go fast.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.16s">
+          <div style="width:46px;height:46px;background:var(--navy-tint);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--navy)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Show Screen, Save Money</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">No codes. No printing. No awkward explanations. Tap your deal, show your screen, done.</p>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div style="width:46px;height:46px;background:var(--navy-tint);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--navy)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Watch Your Savings Stack</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">The app tracks every deal you've used and totals your savings. Students average <strong style="color:var(--navy);">$150 a semester.</strong></p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.08s">
+          <div style="width:46px;height:46px;background:var(--navy-tint);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--navy)" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Tell Your Roommates</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">Refer friends and unlock bonus perks. More people on your campus = better deals for everyone.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.16s">
+          <div style="width:46px;height:46px;background:var(--navy-tint);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" fill="none" stroke="var(--navy)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M20 12v10H4V12"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C9 2 12 7 12 7z"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg mb-2" style="color:var(--navy);">Earn Points, Win Free Stuff</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">Every deal you redeem earns points. Stack them up and enter giveaways and unlock freebies.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── HOW IT WORKS ─────────────── -->
+  <section id="how-it-works" class="py-24" style="background:#ffffff;">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14 fade-up">
+        <p class="section-label mb-3">Getting started</p>
+        <h2 class="font-display font-black text-4xl mb-3" style="color:var(--navy);letter-spacing:-0.03em;">60 seconds to your first deal.</h2>
+        <p style="color:var(--navy-mid);line-height:1.75;" class="max-w-lg mx-auto">
+          No waitlist. No approval. Download, sign up, and start saving today.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 relative">
+        <div class="hidden md:block absolute" style="top:26px;left:calc(33.33% + 0px);width:calc(33.33%);height:1px;background:linear-gradient(90deg,rgba(45,62,82,0.12),rgba(45,62,82,0.25),rgba(45,62,82,0.12));"></div>
+        <div class="hidden md:block absolute" style="top:26px;left:calc(66.66%);width:calc(33.33% - 60px);height:1px;background:linear-gradient(90deg,rgba(45,62,82,0.12),rgba(45,62,82,0.25),rgba(45,62,82,0.05));"></div>
+
+        <div class="text-center fade-up">
+          <div class="step-num">1</div>
+          <h3 class="font-display font-bold text-xl mb-2" style="color:var(--navy);">Download the App</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">Free on iOS and Android. Takes 30 seconds — go ahead, do it now.</p>
+        </div>
+
+        <div class="text-center fade-up" style="transition-delay:0.12s">
+          <div class="step-num">2</div>
+          <h3 class="font-display font-bold text-xl mb-2" style="color:var(--navy);">Create Your Account</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">No .edu required. Sign up in under a minute and unlock every deal instantly.</p>
+        </div>
+
+        <div class="text-center fade-up" style="transition-delay:0.24s">
+          <div class="step-num step-num-accent">3</div>
+          <h3 class="font-display font-bold text-xl mb-2" style="color:var(--navy);">Show Screen, and Save</h3>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">At checkout, open the app, show your deal. That's it. No awkward codes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── SOCIALS ─────────────── -->
+  <section style="background:var(--navy);" class="py-16">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+
+      <p class="text-xs font-semibold uppercase tracking-widest mb-8 fade-up" style="color:rgba(255,255,255,0.4);letter-spacing:0.15em;">Follow us</p>
+
+      <div class="grid grid-cols-3 gap-5 fade-up">
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/collegecards.tamu" target="_blank" rel="noopener noreferrer"
+           style="display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px 16px;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+           onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.transform='translateY(-3px)'"
+           onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          <div>
+            <div class="font-display font-bold text-white" style="font-size:0.95rem;margin-bottom:2px;">Instagram</div>
+            <div style="color:rgba(255,255,255,0.45);font-size:0.75rem;font-family:'Inter',sans-serif;">@collegecards.tamu</div>
+          </div>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@collegecards.tamu" target="_blank" rel="noopener noreferrer"
+           style="display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px 16px;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+           onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.transform='translateY(-3px)'"
+           onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--green)">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.52V6.75a4.85 4.85 0 0 1-1.02-.06z"/>
+          </svg>
+          <div>
+            <div class="font-display font-bold text-white" style="font-size:0.95rem;margin-bottom:2px;">TikTok</div>
+            <div style="color:rgba(255,255,255,0.45);font-size:0.75rem;font-family:'Inter',sans-serif;">@collegecards.tamu</div>
+          </div>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61570664371793" target="_blank" rel="noopener noreferrer"
+           style="display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px 16px;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+           onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.transform='translateY(-3px)'"
+           onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--green)">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+          <div>
+            <div class="font-display font-bold text-white" style="font-size:0.95rem;margin-bottom:2px;">Facebook</div>
+            <div style="color:rgba(255,255,255,0.45);font-size:0.75rem;font-family:'Inter',sans-serif;">College Cards</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="background:rgba(45,62,82,0.15);"></div>
+
+
+  <!-- ─────────────── FOUNDERS ─────────────── -->
+  <section id="founders" class="py-16" style="background:#ffffff;">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-10 fade-up">
+        <p class="section-label mb-3">The Team</p>
+        <h2 class="font-display font-black text-3xl" style="color:var(--navy);letter-spacing:-0.025em;">
+          Meet the <em class="font-serif" style="font-style:italic;font-weight:600;">Founders</em>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+
+        <div class="founder-card fade-up">
+          <img src="./brand_assets/quest4burger.jpg" alt="Andrew Nystrom" class="founder-photo">
+          <h3 class="font-display font-bold text-xl mb-0.5" style="color:var(--navy);">Andrew Nystrom</h3>
+          <p class="text-sm font-medium mb-3" style="color:var(--navy-mid);">Co-Founder &amp; CEO</p>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">
+            Entrepreneur and co-founder of College Cards. Andrew built the platform to connect local restaurants and venues with the students right in their backyard.
+          </p>
+        </div>
+
+        <div class="founder-card fade-up" style="transition-delay:0.12s">
+          <img src="./brand_assets/IMG_8359-face.jpg" alt="Liam Burns" class="founder-photo">
+          <h3 class="font-display font-bold text-xl mb-0.5" style="color:var(--navy);">Liam Burns</h3>
+          <p class="text-sm font-medium mb-3" style="color:var(--navy-mid);">Co-Founder &amp; CMO</p>
+          <p class="text-sm" style="color:var(--navy-mid);line-height:1.75;">
+            Business student and content creator at Texas A&amp;M. Liam started College Cards to help college students make the most of their experience without burning through their wallet.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ─────────────── DOWNLOAD CTA ─────────────── -->
+  <section id="download" class="cta-bg py-14">
+    <div class="max-w-xl mx-auto px-6 text-center relative z-10 fade-up">
+
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.65);font-size:11px;font-weight:600;padding:4px 11px;border-radius:100px;font-family:'Outfit',sans-serif;letter-spacing:0.05em;margin-bottom:18px;">
+        <span style="color:#fbbf24;font-size:10px;">★★★★★</span> 5 / 5 stars
+      </div>
+
+      <h2 class="font-display font-black text-white mb-3"
+          style="font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-0.035em;line-height:1.1;">
+        Your classmates are saving.<br>
+        <em class="font-serif" style="font-style:italic;font-weight:600;color:var(--green);">Are you?</em>
+      </h2>
+
+      <p style="color:rgba(255,255,255,0.45);line-height:1.7;font-size:15px;" class="mb-7 max-w-xs mx-auto">
+        Free to download. First deal waiting. No excuses.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+        <a href="https://apps.apple.com/us/app/college-cards-app/id6751094590" target="_blank" rel="noopener noreferrer" class="store-btn store-btn-white" style="min-width:170px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <div>
+            <div style="font-size:9px;font-weight:400;opacity:0.5;line-height:1;">Download on the</div>
+            <div style="font-size:14px;font-family:'Outfit',sans-serif;font-weight:700;line-height:1.3;color:var(--navy);">App Store</div>
+          </div>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.kbtech.discount_card&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="store-btn store-btn-ghost-white" style="min-width:170px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+            <path d="M5 3.5c0-.59.32-1.1.82-1.36.5-.27 1.1-.23 1.56.1l13 9.5c.4.3.62.75.62 1.26s-.22.96-.62 1.26l-13 9.5c-.46.33-1.06.37-1.56.1-.5-.26-.82-.77-.82-1.36V3.5z"/>
+          </svg>
+          <div>
+            <div style="font-size:9px;font-weight:400;opacity:0.6;line-height:1;">Get it on</div>
+            <div style="font-size:14px;font-family:'Outfit',sans-serif;font-weight:700;line-height:1.3;">Google Play</div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer style="background:#1e2d3d;">
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Logo + tagline + App Store -->
+        <div>
+          <img src="./brand_assets/College Cards Logos and QR Codes.png" alt="College Cards" style="width:170px;height:110px;object-fit:cover;object-position:center 50%;filter:invert(1) contrast(10);mix-blend-mode:screen;display:block;margin-bottom:10px;">
+          <p style="color:rgba(255,255,255,0.35);font-size:12.5px;line-height:1.65;max-width:190px;">
+            Connecting students to the best local deals around campus.
+          </p>
+          <a href="https://apps.apple.com/us/app/college-cards-app/id6751094590" target="_blank" rel="noopener noreferrer"
+             style="display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:6px 12px;text-decoration:none;transition:background 0.2s;"
+             onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <span style="color:rgba(255,255,255,0.8);font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:600;">App Store</span>
+          </a>
+        </div>
+
+        <!-- Pages -->
+        <div>
+          <p style="color:rgba(255,255,255,0.7);font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;margin-bottom:11px;letter-spacing:0.04em;text-transform:uppercase;">Pages</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="index.html" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Home</a>
+            <a href="for-businesses.html" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">For Businesses</a>
+          </div>
+        </div>
+
+        <!-- Connect -->
+        <div>
+          <p style="color:rgba(255,255,255,0.7);font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;margin-bottom:11px;letter-spacing:0.04em;text-transform:uppercase;">Connect</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="https://www.instagram.com/collegecards.tamu" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Instagram</a>
+            <a href="https://www.tiktok.com/@collegecards.tamu" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">TikTok</a>
+            <a href="https://www.facebook.com/profile.php?id=61570664371793" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Facebook</a>
+            <a href="https://apps.apple.com/us/app/college-cards-app/id6751094590" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">App Store</a>
+            <a href="mailto:info@mycollegecards.com" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.75)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">info@mycollegecards.com</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="border-top:1px solid rgba(255,255,255,0.06);">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <p style="color:rgba(255,255,255,0.18);font-size:12px;">&copy; 2026 College Cards. All rights reserved.</p>
+        <div style="display:flex;gap:18px;">
+          <a href="privacy-policy.html" style="color:rgba(255,255,255,0.28);font-size:12px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.55)'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Privacy Policy</a>
+          <a href="terms.html" style="color:rgba(255,255,255,0.28);font-size:12px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.55)'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ─────────────── Scripts ─────────────── -->
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -24px 0px' }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () =>
+      navbar.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+
+    document.querySelectorAll('.flip-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const flipped = card.classList.toggle('flipped');
+        card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    // Coming-soon pill proximity drift
+    (function() {
+      const pills = document.querySelectorAll('.soon-pill');
+      const RADIUS = 140;
+      const MAX_SHIFT = 8;
+
+      document.addEventListener('mousemove', function(e) {
+        pills.forEach(function(pill) {
+          const r = pill.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dx = e.clientX - cx;
+          const dy = e.clientY - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < RADIUS && dist > 0) {
+            const force = (1 - dist / RADIUS) * MAX_SHIFT;
+            pill.style.transform = 'translate(' + (dx / dist * force).toFixed(2) + 'px,' + (dy / dist * force).toFixed(2) + 'px)';
+          } else {
+            pill.style.transform = 'translate(0,0)';
+          }
+        });
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', function() {
+        pills.forEach(function(pill) { pill.style.transform = 'translate(0,0)'; });
+      });
+    })();
+
+
+  </script>
+
+</body>
+</html>
